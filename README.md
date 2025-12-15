@@ -1,1 +1,1 @@
-# Leaveapp
+A simple Leave Application Web App built using Django to understand and practice HTML, CSS, and Bootstrap concepts. This project focuses on frontend styling along with basic backend integration using Django.
