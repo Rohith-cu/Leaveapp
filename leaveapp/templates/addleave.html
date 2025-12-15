@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+
+      <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-5">
+
+          <h3 class="text-center mb-4 fw-bold" style="color:#6f42c1;">Add Leave</h3>
+
+          <form action="{% url 'addleave' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold" style="color:#444;">Date</label>
+              <input type="date" name="date"
+                     class="form-control form-control-lg rounded-3"
+                     required>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold" style="color:#444;">Reason</label>
+              <input type="text" name="reason" placeholder="Reason for leave"
+                     class="form-control form-control-lg rounded-3"
+                     required>
+            </div>
+
+            <button type="submit"
+                    class="w-100 py-3 rounded-3 fw-bold"
+                    style="background-color:#6f42c1; color:white; border:none;">
+              Submit
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

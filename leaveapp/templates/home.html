@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5 text-center">
+
+    <h1 class="fw-bold mb-3">Welcome to Leave Application</h1>
+    <p class="text-muted mb-4">
+        Manage your tasks and leave requests easily in one place.
+    </p>
+
+    <div class="d-flex justify-content-center gap-3">
+        <a href="{% url 'login' %}" class="btn  px-4 py-2"
+        style="background-color:#6f42c1; color:white; border:none;">
+            Login
+        </a>
+
+        <a href="/" class="btn btn-outline-secondary px-4 py-2">
+            Home
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

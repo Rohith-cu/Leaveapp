@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+
+  {% for i in messages %}
+  <script>alert("{{ i }}")</script>
+  {% endfor %}
+
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+
+      <div class="card shadow-sm border-0 rounded-4">
+
+        <div class="card-body p-5">
+
+          
+          <div class="text-center mb-4">
+            {% if st.profile %}
+              <img src="{{ st.profile.url }}"
+                   class="rounded-circle border shadow-sm"
+                   style="width: 150px; height: 150px; object-fit: cover;">
+            {% else %}
+              <div class="rounded-circle bg-light d-flex align-items-center justify-content-center border shadow-sm"
+                   style="width:150px; height:150px; margin:auto; font-size:14px; color:#777;">
+                No Photo
+              </div>
+            {% endif %}
+          </div>
+
+          <h3 class="text-center mb-4 fw-bold" style="color:#6f42c1;">Edit Profile</h3>
+
+          
+          <form action="{% url 'edit' st.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-secondary">Name</label>
+              <input type="text" name="name" value="{{ st.name }}" 
+                     class="form-control form-control-lg rounded-3 shadow-sm">
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-secondary">Class Name</label>
+              <input type="text" name="class_name" value="{{ st.class_name }}" 
+                     class="form-control form-control-lg rounded-3 shadow-sm">
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-secondary">Password</label>
+              <input type="password" name="password" value="{{ st.password }}" 
+                     class="form-control form-control-lg rounded-3 shadow-sm">
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-secondary">Username (Email)</label>
+              <input type="email" name="username" value="{{ st.username }}" 
+                     class="form-control form-control-lg rounded-3 shadow-sm">
+            </div>
+
+            
+            <div class="mb-4">
+              <label class="form-label fw-semibold text-secondary">Change Profile Photo</label>
+              <input type="file" name="profile" 
+                     class="form-control rounded-3 shadow-sm">
+            </div>
+
+            <div class="text-end mb-3">
+              <a href="{% url 'change' st.id %}" 
+                 class="text-decoration-none fw-semibold"
+                 style="color:#6f42c1;">
+                Change Password?
+              </a>
+            </div>
+
+            <button type="submit" 
+                    class="btn w-100 py-3 rounded-3 fw-bold text-white"
+                    style="background-color:#6f42c1;">
+              Update Profile
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

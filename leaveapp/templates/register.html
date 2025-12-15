@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+
+            <div class="card shadow border-0 rounded-4">
+                <div class="card-body p-5">
+
+                    <h3 class="text-center fw-bold mb-4 "
+                    style="color:#6f42c1;">
+                        Student Registration
+                    </h3>
+
+                    <form action="{% url 'register' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Name</label>
+                            <input type="text" name="name" class="form-control form-control-lg" placeholder="Enter your name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Class Name</label>
+                            <input type="text" name="class_name" class="form-control form-control-lg" placeholder="Enter class name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Email</label>
+                            <input type="email" name="username" class="form-control form-control-lg" placeholder="Enter email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Password</label>
+                            <input type="password" name="password" class="form-control form-control-lg" placeholder="Create password" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Confirm Password</label>
+                            <input type="password" name="cpassword" class="form-control form-control-lg" placeholder="Confirm password" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Profile Photo</label>
+                            <input type="file" name="profile" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn w-100 py-2 fw-semibold"
+                        style="background-color:#6f42c1; color:white; border:none;">
+                            Register
+                        </button>
+
+                        <div class="text-center mt-3">
+                            <span class="text-muted">Are you staff?</span>
+                            <a href="{% url 'staffr' %}" class="fw-semibold  text-decoration-none"
+                            style="color:#6f42c1;">
+                                Register here
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

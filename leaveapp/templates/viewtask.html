@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% for i in messages %}
+        <div class="alert alert-warning text-center">
+            {{ i }}
+        </div>
+{% endfor %}
+<div class="container py-4">
+
+{% if role == "student" %}
+<h2 class="fw-bold mb-4 text-center">Welcome, {{ request.user.first_name }}</h2>
+
+<!-- TO DO LIST -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-light fw-semibold text-center">
+        To-Do List
+    </div>
+
+    <div class="card-body p-0">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-secondary">
+                <tr>
+                    <th>Task</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in li %}
+                <tr class="{% if i.completed == 'completed' %}text-muted{% endif %}">
+                    <td>
+                        {% if i.completed == 'completed' %}
+                        <s>{{ i.task }}</s>
+                        {% else %}
+                        {{ i.task }}
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {% if i.completed == 'completed' %}
+                        <s>{{ i.due }}</s>
+                        {% else %}
+                        {{ i.due }}
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <span class="badge 
+                            {% if i.completed == 'completed' %}bg-success
+                            {% else %}bg-warning text-dark
+                            {% endif %}">
+                            {{ i.completed }}
+                        </span>
+                    </td>
+
+                    <td class="text-center">
+                        <a href="{% url 'delete' i.id %}" class="btn btn-outline-danger btn-sm">Delete</a>
+
+                        {% if i.completed != "completed" %}
+                        <a href="{% url 'complete' i.id %}" class="btn btn-outline-success btn-sm">Mark Complete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- LEAVE DETAILS -->
+<div class="card shadow-sm">
+    <div class="card-header bg-light fw-semibold text-center">
+        Your Leave Records
+    </div>
+
+    <div class="card-body p-0">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-secondary">
+                <tr>
+                    <th>Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in a %}
+                <tr>
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.reason }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if i.approved == 'approved' %}bg-success
+                            {% elif i.approved == 'rejected' %}bg-danger
+                            {% else %}bg-warning text-dark
+                            {% endif %}">
+                            {{ i.approved }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+{% else %}
+
+<!-- ADMIN VIEW -->
+<div class="card shadow-sm">
+    <div class="card-header bg-light fw-semibold text-center">
+        Manage Leave Requests
+    </div>
+
+    <div class="card-body p-0">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-secondary">
+                <tr>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for i in l %}
+                <tr>
+                    <td>{{ i.student.name }}</td>
+                    <td>{{ i.date }}</td>
+                    <td>{{ i.reason }}</td>
+
+                    <td>
+                        <span class="badge 
+                            {% if i.approved == 'approved' %}bg-success
+                            {% elif i.approved == 'rejected' %}bg-danger
+                            {% else %}bg-warning text-dark
+                            {% endif %}">
+                            {{ i.approved }}
+                        </span>
+                    </td>
+
+                    <td class="text-center">
+                        {% if i.approved != "approved" %}
+                        <a href="{% url 'approve' i.id %}" class="btn btn-outline-success btn-sm me-1">Approve</a>
+                        {% endif %}
+                        <a href="{% url 'reject' i.id %}" class="btn btn-outline-danger btn-sm">Reject</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+{% endif %}
+</div>
+
+{% endblock %}
